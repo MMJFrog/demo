@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "my first demo",
   "scripts": {
-    "build": "date"
+    "build": "echo Hello",
     "test": "echo This is Test-Script",
     "deploy": "echo This is Deploy-Script"
   }
