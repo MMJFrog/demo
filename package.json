@@ -1,5 +1,8 @@
 {
   "name": "demo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "my first demo",
   "scripts": {
     "test": "echo This is Test-Script",
     "deploy": "echo This is Deploy-Script"
