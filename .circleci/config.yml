@@ -19,7 +19,7 @@ jobs:
       - run: npm run test
 
 workflows:
-  version: 2.1
+  version: 2.0
     build_and_test:
       jobs:
         - build
