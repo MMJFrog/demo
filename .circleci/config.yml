@@ -33,21 +33,27 @@ jobs:
           artifactory-key: ARTIFACTORY_API_KEY
           artifactory-url: ARTIFACTORY_URL
           artifactory-user: ARTIFACTORY_USER
+      #- run:
+      #    name: jfrog push
+      #    command: |
+      #      ./jfrog rt u "/home/circleci/project/target/*.jar" java-work --build-name=test --build-number=$CIRCLE_BUILD_NUM --flat=false
+      #      ./jfrog rt u "multi*/*.jar" <artifactory_repo_name>          --build-name=<name_you_give_to_build> --build-number=$CIRCLE_BUILD_NUM --flat=false
+      #      ./jfrog rt dp $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 circle-artifactory --build-name=demo-build --build-number=$CIRCLE_SHA1
       - run: 
           name: Build Docker image
           command: |
             docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
-      - run:
-          name: Login to Docker
-          command: |
-            docker login --username=$ARTIFACTORY_USER --password=$ARTIFACTORY_API_KEY $ARTIFACTORY_DOCKER_REGISTRY
-      - run: 
-          name: JFrog Commands 
-          command: |
-            jfrog rt dp $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 circle-artifactory --build-name=demo-build --build-number=$CIRCLE_SHA1
-            jfrog rt bce demo-build $CIRCLE_SHA1
-            jfrog rt bp demo-build $CIRCLE_SHA1
-            jfrog rt bs demo-build $CIRCLE_SHA1
+      #- run:
+      #    name: Login to Docker
+      #    command: |
+      #      docker login --username=$ARTIFACTORY_USER --password=$ARTIFACTORY_API_KEY $ARTIFACTORY_DOCKER_REGISTRY
+      #- run: 
+      #    name: JFrog Commands 
+      #    command: |
+      #      jfrog rt dp $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 circle-artifactory --build-name=demo-build --build-number=$CIRCLE_SHA1
+      #      jfrog rt bce demo-build $CIRCLE_SHA1
+      #      jfrog rt bp demo-build $CIRCLE_SHA1
+      #      jfrog rt bs demo-build $CIRCLE_SHA1
 
 workflows:
   test:
