@@ -2,7 +2,7 @@ FROM node:14.12.0
 
 # Create app directory
 WORKDIR /usr/src/app
-RUN cd
+RUN cd ../../../
 
 # Install app dependencies (package.json and package-lock.json)
 RUN PWD
