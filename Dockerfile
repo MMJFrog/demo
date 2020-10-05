@@ -2,6 +2,7 @@ FROM node:14.12.0
 
 # Create app directory
 WORKDIR /usr/src/app
+RUN pwd
 
 # Install app dependencies (package.json and package-lock.json)
 COPY package.json /.
