@@ -10,15 +10,40 @@ executors:
       - image: 'cimg/base:stable'
 
 jobs:
-  test:
+  Install_Nodejs:
     executor: default
     steps:
       - checkout
       - node/install:
           install-yarn: true
       - run: node --version
+  build-scan:
+    executor: default
+    steps:
+      - checkout
+      - setup_remote_docker
+      - artifactory/install
+      - artifactory/configure:
+          artifactory-key: ARTIFACTORY_API_KEY
+          artifactory-url: ARTIFACTORY_URL
+          artifactory-user: ARTIFACTORY_USER
+      - run: 
+          name: Build Docker image
+          command: |
+            docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
+      - run:
+          name: Log in to Docker
+          command: |
+            docker login --username=$ARTIFACTORY_USER --password=$ARTIFACTORY_API_KEY $ARTIFACTORY_DOCKER_REGISTRY
+      - run: 
+          name: JFrog Commands 
+          command: |
+            jfrog rt dp $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 circle-artifactory --build-name=demo-build --build-number=$CIRCLE_SHA1
+            jfrog rt bce demo-build $CIRCLE_SHA1
+            jfrog rt bp demo-build $CIRCLE_SHA1
+            jfrog rt bs demo-build $CIRCLE_SHA1
 
 workflows:
   test:
     jobs:
-      - test
+      - build-scan
