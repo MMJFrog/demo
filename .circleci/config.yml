@@ -40,7 +40,7 @@ jobs:
             echo $CIRCLE_SHA1
             #docker build --help
             docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
-       - run:
+      - run:
           name: Test
           command: |
             docker ps
