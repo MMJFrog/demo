@@ -4,6 +4,10 @@ orbs:
   node: circleci/node@4.1.0
   artifactory: circleci/artifactory@1.0.0
 
+ARTIFACTORY_API_KEY: AKCp8hyQE8Q3zdedsnYk3PNrxcam1yjGDriyaqe7syb12denR4JkrjBgMsKz78VQ1vj5KTuKN
+ARTIFACTORY_URL: https://mmjfrog.jfrog.io/artifactory
+ARTIFACTORY_USER: mmjfrog2020@gmail.com
+
 executors:
   default:
     docker:
@@ -17,6 +21,7 @@ jobs:
       - node/install:
           install-yarn: true
       - run: node --version
+
   build-scan:
     executor: default
     steps:
