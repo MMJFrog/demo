@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies (package.json and package-lock.json)
 COPY package.json ./
-RUN npm install
+#RUN npm install
 
 # Listen port
 EXPOSE 8080
