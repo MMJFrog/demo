@@ -44,7 +44,6 @@ jobs:
           name: Test
           command: |
             docker ps
-            docker stats
       #- run:
       #    name: jfrog push
       #    command: |
