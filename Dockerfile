@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY package.json ./
 #RUN npm install
 RUN npm -v
+RUN node -v
 
 # Listen port
 EXPOSE 8080
