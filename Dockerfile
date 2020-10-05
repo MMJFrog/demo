@@ -2,9 +2,11 @@ FROM node:14.12.0
 
 # Create app directory
 WORKDIR /usr/src/app
-RUN pwd
+RUN cd
 
 # Install app dependencies (package.json and package-lock.json)
+RUN PWD
+RUN ls
 COPY package.json /.
 RUN npm install
 
