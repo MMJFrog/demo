@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.1.0
   artifactory: circleci/artifactory@1.0.0
+  docker: circleci/docker@1.4.0
 
 executors:
   default:
@@ -33,16 +34,21 @@ jobs:
           artifactory-key: ARTIFACTORY_API_KEY
           artifactory-url: ARTIFACTORY_URL
           artifactory-user: ARTIFACTORY_USER
+      - run: 
+          name: Build Docker image
+          command: |
+            echo $CIRCLE_SHA1
+            #docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .  
       #- run:
       #    name: jfrog push
       #    command: |
       #      ./jfrog rt u "/home/circleci/project/target/*.jar" java-work --build-name=test --build-number=$CIRCLE_BUILD_NUM --flat=false
       #      ./jfrog rt u "multi*/*.jar" <artifactory_repo_name>          --build-name=<name_you_give_to_build> --build-number=$CIRCLE_BUILD_NUM --flat=false
       #      ./jfrog rt dp $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 circle-artifactory --build-name=demo-build --build-number=$CIRCLE_SHA1
-      - run: 
-          name: Build Docker image
-          command: |
-            docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
+      #- run: 
+      #    name: Build Docker image
+      #    command: |
+      #      docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
       #- run:
       #    name: Login to Docker
       #    command: |
