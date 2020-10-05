@@ -10,13 +10,13 @@ executors:
       - image: 'cimg/base:stable'
 
 jobs:
-  Install_Nodejs:
-    executor: default
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: true
-      - run: node --version
+  #Install_Nodejs:
+  #  executor: default
+  #  steps:
+  #    - checkout
+  #    - node/install:
+  #        install-yarn: true
+  #    - run: node --version
 
   build-scan:
     executor: default
@@ -24,6 +24,7 @@ jobs:
       ARTIFACTORY_API_KEY: AKCp8hyQE8Q3zdedsnYk3PNrxcam1yjGDriyaqe7syb12denR4JkrjBgMsKz78VQ1vj5KTuKN
       ARTIFACTORY_URL: https://mmjfrog.jfrog.io/artifactory
       ARTIFACTORY_USER: mmjfrog2020@gmail.com
+      ARTIFACTORY_DOCKER_REGISTRY: docker-local
     steps:
       - checkout
       - setup_remote_docker
@@ -37,7 +38,7 @@ jobs:
           command: |
             docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
       - run:
-          name: Log in to Docker
+          name: Login to Docker
           command: |
             docker login --username=$ARTIFACTORY_USER --password=$ARTIFACTORY_API_KEY $ARTIFACTORY_DOCKER_REGISTRY
       - run: 
