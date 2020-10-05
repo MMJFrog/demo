@@ -4,7 +4,7 @@ FROM node:14.12.0
 WORKDIR /usr/src/app
 
 # Install app dependencies (package.json and package-lock.json)
-COPY package.json ./
+COPY package.json /.
 RUN npm install
 
 # Listen port
