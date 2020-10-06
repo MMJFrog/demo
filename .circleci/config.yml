@@ -32,10 +32,9 @@ jobs:
       - run:
           name: Login npm
           command: |
-            ls -a
-            pwd
-            #npm config set registry https://mmjfrog.jfrog.io/artifactory/api/npm/lib-snapshot/
+            npm config set registry https://mmjfrog.jfrog.io/artifactory/api/npm/lib-snapshot/
             #npm config set @<SCOPE>:registry https://mmjfrog.jfrog.io/artifactory/api/npm/lib-snapshot/
+            npmrc work
             #npm login
             
       
