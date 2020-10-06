@@ -33,7 +33,7 @@ jobs:
           name: Login npm
           command: |
             npm config set @<SCOPE>:registry https://mmjfrog.jfrog.io/artifactory/api/npm/lib-snapshot/
-            npm login
+            #npm login
             
       
       #- setup_remote_docker
