@@ -28,22 +28,30 @@ jobs:
       ARTIFACTORY_DOCKER_REGISTRY: docker-local
     steps:
       - checkout
-      - setup_remote_docker
-      - artifactory/install
-      - artifactory/configure:
-          artifactory-key: ARTIFACTORY_API_KEY
-          artifactory-url: ARTIFACTORY_URL
-          artifactory-user: ARTIFACTORY_USER
-      - run: 
-          name: Build Docker image
-          command: |
-            echo $CIRCLE_SHA1
-            #docker build --help
-            docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
+      
       - run:
-          name: Test
+          name: Login npm
           command: |
-            docker ps
+            npm config set @<SCOPE>:registry https://mmjfrog.jfrog.io/artifactory/api/npm/lib-snapshot/
+            npm login
+            
+      
+      #- setup_remote_docker
+      #- artifactory/install
+      #- artifactory/configure:
+      #    artifactory-key: ARTIFACTORY_API_KEY
+      #    artifactory-url: ARTIFACTORY_URL
+      #    artifactory-user: ARTIFACTORY_USER
+      #- run: 
+      #    name: Build Docker image
+      #    command: |
+      #      echo $CIRCLE_SHA1
+      #      #docker build --help
+      #      docker build -t $ARTIFACTORY_DOCKER_REGISTRY/demo-build:$CIRCLE_SHA1 .
+      #- run:
+      #    name: Test
+      #    command: |
+      #      docker ps
       #- run:
       #    name: jfrog push
       #    command: |
